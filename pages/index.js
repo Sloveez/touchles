@@ -15,15 +15,18 @@ const Home = () => {
         <h1 className={styles.title}>Touchles!</h1>
 
         <p className={styles.description}>
-          Get started by editing{" "}
-          <code className={styles.code}>pages/index.js</code>
+          Current User:
+          <code className={styles.code}>
+            {auth.user ? auth.user.name : "None"}
+          </code>
         </p>
-
-        <button onClick={(e) => auth.signinWithGoogle()}>Sign In</button>
-        <div>{auth?.user?.name}</div>
-        {auth?.user && (
-          <button onClick={(e) => auth.signout()}>Sign Out</button>
-        )}
+        <div>
+          {!auth.user ? (
+            <button onClick={(e) => auth.signinWithGoogle()}>Sign In</button>
+          ) : (
+            <button onClick={(e) => auth.signout()}>Sign Out</button>
+          )}
+        </div>
       </main>
     </div>
   );
