@@ -1,31 +1,34 @@
 import Head from "next/head";
-import styles from "../styles/Home.module.css";
-import { useAuth } from "../lib/auth";
+import { Flex, Heading, Button, Text, Code, Icon } from "@chakra-ui/react";
+import { useAuth } from "@/lib/auth";
+import { LogoIcon } from "@/styles/logoicon";
 
 const Home = () => {
   const auth = useAuth();
   return (
-    <div className={styles.container}>
+    <Flex
+      as="main"
+      direction="column"
+      align="center"
+      justify="center"
+      h="100vh"
+    >
       <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>Touchles</title>
       </Head>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>Touchles!</h1>
+      <LogoIcon />
 
-        <p className={styles.description}>
-          Get started by editing{" "}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <button onClick={(e) => auth.signinWithGoogle()}>Sign In</button>
-        <div>{auth?.user?.name}</div>
-        {auth?.user && (
-          <button onClick={(e) => auth.signout()}>Sign Out</button>
+      <div>
+        {auth.user ? (
+          <Button onClick={(e) => auth.signout()}>Sign Out</Button>
+        ) : (
+          <Button mt={4} size="sm" onClick={(e) => auth.signinWithGoogle()}>
+            Sign In
+          </Button>
         )}
-      </main>
-    </div>
+      </div>
+    </Flex>
   );
 };
 
