@@ -1,7 +1,7 @@
 import React from "react";
 import { theme as chakraTheme } from "@chakra-ui/react";
 
-const theme = {
+const customTheme = {
   ...chakraTheme,
   fonts: {
     ...chakraTheme.fonts,
@@ -14,4 +14,4 @@ const theme = {
   },
 };
 
-export default theme;
+export default customTheme;
