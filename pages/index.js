@@ -20,15 +20,15 @@ const Home = () => {
 
       <LogoIcon />
 
-      <div>
-        {auth.user ? (
+      {auth.user ? (
+        <>
           <Button onClick={(e) => auth.signout()}>Sign Out</Button>
-        ) : (
-          <Button mt={4} size="sm" onClick={(e) => auth.signinWithGoogle()}>
-            Sign In
-          </Button>
-        )}
-      </div>
+        </>
+      ) : (
+        <Button mt={4} size="sm" onClick={(e) => auth.signinWithGoogle()}>
+          Sign In
+        </Button>
+      )}
     </Flex>
   );
 };
