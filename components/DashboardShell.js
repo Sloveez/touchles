@@ -16,9 +16,10 @@ import {
 import { AddIcon } from "@chakra-ui/icons";
 
 import { useAuth } from "@/lib/auth";
+import AddLocationModal from "./AddLocationModal";
 
 const DashboardShell = ({ children }) => {
-  const auth = useAuth();
+  const { user } = useAuth();
 
   return (
     <Flex flexDirection="column">
@@ -41,9 +42,13 @@ const DashboardShell = ({ children }) => {
           <Link>Locations</Link>
           <Link>Menus</Link>
         </Stack>
-        <Flex display="block" alignItems="center">
-          <Link pr={4}>Account</Link>
-          <Avatar size="xs" src={auth.user.photoUrl} />
+        <Flex justifyContent="center" alignItems="center">
+          {user && (
+            <Button variant="ghost" mr={2} onClick={() => signout()}>
+              Log out
+            </Button>
+          )}
+          <Avatar size="xs" src={user?.photoUrl} />
         </Flex>
       </Flex>
       <Flex backgroundColor="gray.100" height="100vh" p={8}>
@@ -53,9 +58,12 @@ const DashboardShell = ({ children }) => {
               <BreadcrumbLink fontSize="sm">Locations</BreadcrumbLink>
             </BreadcrumbItem>
           </Breadcrumb>
-          <Heading color="black" mb={4}>
-            Locations
-          </Heading>
+          <Flex justifyContent="space-between">
+            <Heading color="black" mb={4}>
+              Locations
+            </Heading>
+            <AddLocationModal>+ Add Location</AddLocationModal>
+          </Flex>
           {children}
         </Flex>
       </Flex>

@@ -22,6 +22,9 @@ const Home = () => {
 
       {auth.user ? (
         <>
+          <Button as="a" href="/dashboard">
+            View Dashboard
+          </Button>
           <Button onClick={(e) => auth.signout()}>Sign Out</Button>
         </>
       ) : (

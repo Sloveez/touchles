@@ -14,22 +14,57 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import { createLocation } from "@/lib/db";
+import { useToast } from "@chakra-ui/react";
 
-const AddLocationModal = () => {
+import { createLocation } from "@/lib/db";
+import { useAuth } from "@/lib/auth";
+import { mutate } from "swr";
+
+const AddLocationModal = ({ children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { handleSubmit, register, errors } = useForm();
-
   const initialRef = useRef();
+  const auth = useAuth();
+  const toast = useToast();
 
   const onCreateLocation = (values) => {
-    createLocation(values);
+    const newLocation = {
+      userId: auth.user.uid,
+      createdAt: new Date().toISOString(),
+      ...values,
+    };
+    createLocation(newLocation);
+    toast({
+      title: "Location created.",
+      description: "We've created your Location.",
+      status: "success",
+      duration: 3000,
+      isClosable: true,
+    });
+    mutate(
+      "/api/locations",
+      async (data) => {
+        return { locations: [...data.locations, newLocation] };
+      },
+      false
+    );
+    onClose();
   };
 
   return (
     <>
-      <Button maxW="120px" fontWeight="medium" onClick={onOpen}>
-        Add location
+      <Button
+        backgroundColor="gray.900"
+        color="white"
+        fontWeight="medium"
+        _hover={{ bg: "gray.700" }}
+        _active={{
+          bg: "gray.800",
+          transform: "scale(0.95)",
+        }}
+        onClick={onOpen}
+      >
+        {children}
       </Button>
 
       <Modal initialFocusRef={initialRef} isOpen={isOpen} onClose={onClose}>
