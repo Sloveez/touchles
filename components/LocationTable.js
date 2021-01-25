@@ -1,7 +1,8 @@
 import React from "react";
-import { Box } from "@chakra-ui/react";
+import { Box, Link } from "@chakra-ui/react";
 import { parseISO, format } from "date-fns";
 import { Table, Tr, Th, Td } from "./Table";
+import NextLink from "next/link";
 
 const LocationTable = ({ locations }) => {
   return (
@@ -9,7 +10,8 @@ const LocationTable = ({ locations }) => {
       <thead>
         <Tr>
           <Th>Location Name</Th>
-          <Th>Tag Line</Th>
+          <Th>Site Link</Th>
+          <Th>Feedback Link</Th>
           <Th>Created</Th>
           <Th>{""}</Th>
         </Tr>
@@ -18,7 +20,16 @@ const LocationTable = ({ locations }) => {
         {locations.map((location) => (
           <Box as="tr" key={location.location}>
             <Td fontWeight="medium">{location.location}</Td>
-            <Td>{location.tagline}</Td>
+            <Td>{location.sitelink}</Td>
+            <Td>
+              <NextLink
+                href="/p/[locationId]"
+                as={`/p/${location.id}`}
+                passHref
+              >
+                <Link>View Feedback</Link>
+              </NextLink>
+            </Td>
             <Td>{format(parseISO(location.createdAt), "PPpp")}</Td>
           </Box>
         ))}

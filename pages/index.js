@@ -15,6 +15,15 @@ const Home = () => {
       h="100vh"
     >
       <Head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if (document.cookie && document.cookie.includes('touchles-auth')) {
+                window.location.href = "/dashboard"
+              }
+            `,
+          }}
+        />
         <title>Touchles</title>
       </Head>
 

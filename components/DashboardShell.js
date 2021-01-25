@@ -19,7 +19,7 @@ import { useAuth } from "@/lib/auth";
 import AddLocationModal from "./AddLocationModal";
 
 const DashboardShell = ({ children }) => {
-  const { user } = useAuth();
+  const { user, signout } = useAuth();
 
   return (
     <Flex flexDirection="column">
@@ -40,7 +40,7 @@ const DashboardShell = ({ children }) => {
         >
           <AddIcon />
           <Link>Locations</Link>
-          <Link>Menus</Link>
+          <Link>Feedback</Link>
         </Stack>
         <Flex justifyContent="center" alignItems="center">
           {user && (

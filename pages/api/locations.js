@@ -1,12 +1,13 @@
-import db from "@/lib/firebase-admin";
+import { getAllUserLocations } from "@/lib/db-admin";
+import { auth } from "@/lib/firebase-admin";
 
-export default async (_, res) => {
-  const snapshot = await db.collection("locations").get();
-  const locations = [];
+export default async (req, res) => {
+  try {
+    const { uid } = await auth.verifyIdToken(req.headers.token);
 
-  snapshot.forEach((doc) => {
-    locations.push({ id: doc.id, ...doc.data() });
-  });
-
-  res.status(200).json({ locations });
+    const locations = await getAllUserLocations(uid);
+    res.status(200).json(locations);
+  } catch (error) {
+    res.status(500).json({ error });
+  }
 };

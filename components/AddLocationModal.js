@@ -42,7 +42,7 @@ const AddLocationModal = ({ children }) => {
       isClosable: true,
     });
     mutate(
-      "/api/locations",
+      ["/api/locations", auth.user.token],
       async (data) => {
         return { locations: [...data.locations, newLocation] };
       },
@@ -86,10 +86,10 @@ const AddLocationModal = ({ children }) => {
             </FormControl>
 
             <FormControl mt={4}>
-              <FormLabel>Tagline</FormLabel>
+              <FormLabel>Site Link</FormLabel>
               <Input
-                placeholder="Tagline"
-                name="tagline"
+                placeholder="Site URL"
+                name="sitelink"
                 ref={register({
                   required: "Required",
                 })}
