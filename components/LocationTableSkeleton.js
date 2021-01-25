@@ -24,7 +24,7 @@ const LocationTableSkeleton = () => {
     <Table>
       <thead>
         <Tr>
-          <Th>Name</Th>
+          <Th>Location</Th>
           <Th>Site Link</Th>
           <Th>Feedback Link</Th>
           <Th>Date Added</Th>
