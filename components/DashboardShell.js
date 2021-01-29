@@ -1,18 +1,7 @@
 import React from "react";
-import {
-  Flex,
-  Stack,
-  Link,
-  Avatar,
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  Heading,
-  Box,
-  Text,
-  Button,
-  useRadio,
-} from "@chakra-ui/react";
+import NextLink from "next/link";
+import { Flex, Stack, Link, Avatar, Button } from "@chakra-ui/react";
+
 import { AddIcon } from "@chakra-ui/icons";
 
 import { useAuth } from "@/lib/auth";
@@ -39,8 +28,12 @@ const DashboardShell = ({ children }) => {
           align="center"
         >
           <AddIcon />
-          <Link>Locations</Link>
-          <Link>Feedback</Link>
+          <NextLink href="/dashboard" passHref>
+            <Link>Locations</Link>
+          </NextLink>
+          <NextLink href="/feedback" passHref>
+            <Link href="/feedback">Feedback</Link>
+          </NextLink>
         </Stack>
         <Flex justifyContent="center" alignItems="center">
           {user && (
@@ -53,17 +46,6 @@ const DashboardShell = ({ children }) => {
       </Flex>
       <Flex backgroundColor="gray.100" height="100vh" p={8}>
         <Flex maxWidth="800px" w="100%" ml="auto" mr="auto" direction="column">
-          <Breadcrumb>
-            <BreadcrumbItem isCurrentPage>
-              <BreadcrumbLink fontSize="sm">Locations</BreadcrumbLink>
-            </BreadcrumbItem>
-          </Breadcrumb>
-          <Flex justifyContent="space-between">
-            <Heading color="black" mb={4}>
-              Locations
-            </Heading>
-            <AddLocationModal>+ Add Location</AddLocationModal>
-          </Flex>
           {children}
         </Flex>
       </Flex>

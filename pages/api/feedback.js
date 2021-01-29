@@ -1,12 +1,12 @@
-import { getAllUserLocations } from "@/lib/db-admin";
+import { getUserFeedback } from "@/lib/db-admin";
 import { auth } from "@/lib/firebase-admin";
 
 export default async (req, res) => {
   try {
     const { uid } = await auth.verifyIdToken(req.headers.token);
-    const { locations } = await getAllUserLocations(uid);
+    const { feedback } = await getUserFeedback(uid);
 
-    res.status(200).json({ locations });
+    res.status(200).json({ feedback });
   } catch (error) {
     res.status(500).json({ error });
   }
