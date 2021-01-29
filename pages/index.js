@@ -3,6 +3,7 @@ import { Flex, Heading, Button, Text, Code, Icon } from "@chakra-ui/react";
 
 import { useAuth } from "@/lib/auth";
 import { LogoIcon } from "../styles/logoicon";
+import { GoogleIcon } from "@/styles/GoogleIcon";
 
 const Home = () => {
   const auth = useAuth();
@@ -37,8 +38,22 @@ const Home = () => {
           <Button onClick={(e) => auth.signout()}>Sign Out</Button>
         </>
       ) : (
-        <Button mt={4} size="sm" onClick={(e) => auth.signinWithGoogle()}>
-          Sign In
+        <Button
+          backgroundColor="white"
+          color="gray.900"
+          variant="outline"
+          fontWeight="medium"
+          leftIcon={<GoogleIcon />}
+          mt={4}
+          size="lg"
+          _hover={{ bg: "gray.100" }}
+          _active={{
+            bg: "gray.100",
+            transform: "scale(0.95)",
+          }}
+          onClick={(e) => auth.signinWithGoogle()}
+        >
+          Sign In with Google
         </Button>
       )}
     </Flex>

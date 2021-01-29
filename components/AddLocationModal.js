@@ -33,7 +33,7 @@ const AddLocationModal = ({ children }) => {
       createdAt: new Date().toISOString(),
       ...values,
     };
-    createLocation(newLocation);
+    const { id } = createLocation(newLocation);
     toast({
       title: "Location created.",
       description: "We've created your Location.",
@@ -41,10 +41,11 @@ const AddLocationModal = ({ children }) => {
       duration: 3000,
       isClosable: true,
     });
+    console.log(id);
     mutate(
       ["/api/locations", auth.user.token],
       async (data) => {
-        return { locations: [...data.locations, newLocation] };
+        return { locations: [...data.locations, { id, ...newLocation }] };
       },
       false
     );

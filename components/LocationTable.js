@@ -27,7 +27,9 @@ const LocationTable = ({ locations }) => {
                 as={`/p/${location.id}`}
                 passHref
               >
-                <Link>View Feedback</Link>
+                <Link fontWeight="medium" color="blue.500">
+                  View Feedback
+                </Link>
               </NextLink>
             </Td>
             <Td>{format(parseISO(location.createdAt), "PPpp")}</Td>

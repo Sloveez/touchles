@@ -5,35 +5,30 @@ import useSWR from "swr";
 import { useAuth } from "@/lib/auth";
 import { LogoIcon } from "../styles/logoicon";
 import EmptyState from "@/components/EmptyState";
-import LocationTableSkeleton from "@/components/LocationTableSkeleton";
+import FeedbackTable from "@/components/FeedbackTable";
+import FeedbackTableSkeleton from "@/components/FeedbackTableSkeleton";
 import DashboardShell from "@/components/DashboardShell";
 import fetcher from "@/utils/fetcher";
-import LocationTable from "@/components/LocationTable";
-import LocationsTableHeader from "@/components/LocationsTableHeader";
+import FeedbackTableHeader from "@/components/FeedbackTableHeader";
 
-const Dashboard = () => {
+const MyFeedback = () => {
   const { user } = useAuth();
-  const { data } = useSWR(
-    user ? ["/api/locations", user.token] : null,
-    fetcher
-  );
+  const { data } = useSWR(user ? ["/api/feedback", user.token] : null, fetcher);
 
   if (!data) {
     return (
       <DashboardShell>
-        <LocationsTableHeader />
-        <LocationTableSkeleton />
+        <FeedbackTableHeader />
+        <FeedbackTableSkeleton />
       </DashboardShell>
     );
   }
 
   return (
     <DashboardShell>
-      {data.locations.length ? (
-        <>
-          <LocationsTableHeader />
-          <LocationTable locations={data.locations} />
-        </>
+      <FeedbackTableHeader />
+      {data.feedback.length ? (
+        <FeedbackTable allFeedback={data.feedback} />
       ) : (
         <EmptyState />
       )}
@@ -41,4 +36,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default MyFeedback;
